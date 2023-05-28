@@ -1,11 +1,14 @@
 <template>
-  <div class="box has-text-weight-bold">
+  <div 
+    class="box has-text-weight-bold"
+    v-for="(task, index) in tasks" :key="index"
+  >
     <div class="columns">
       <div class="column is-7">
-
+        {{ task.describe }}
       </div>
       <div class="column">
-        <Cronometro :tempSegunds="15"/>
+        <Cronometro :tempSegunds="task.tempSegunds"/>
       </div>
     </div>
   </div>
@@ -13,12 +16,21 @@
 
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { Task } from '@/interfaces/Task';
+import { defineComponent, PropType } from 'vue';
 import Cronometro from './Cronometro.vue';
+
+
 
 export default defineComponent({
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Task',
+  props: {
+    tasks: {
+      type: [] as PropType<Task>,
+      require: true
+    }
+  },
   components: {
     Cronometro
   }

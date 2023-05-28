@@ -5,13 +5,13 @@
         <span class="icon">
           <i class="fas fa-play"></i>
         </span>
-        <span>play</span>
+        <span>iniciar</span>
       </button>
       <button class="button" @click="finished" :disabled="!play">
         <span class="icon">
           <i class="fas fa-stop"></i>
         </span>
-        <span>stop</span>
+        <span>parar</span>
       </button>
   </div>
 </template>
@@ -24,6 +24,7 @@ import Cronometro from './Cronometro.vue';
 export default defineComponent({
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Timer',
+  emits: ['onFinished'],
   data() {
     return {
       tempSegunds: 0,
@@ -41,6 +42,7 @@ export default defineComponent({
       }
     },
     finished() {
+      this.$emit('onFinished', this.tempSegunds);
       this.play = false;
       this.tempSegunds = 0;
       clearInterval(this.cronometro);

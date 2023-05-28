@@ -2,24 +2,46 @@
   <div class="box">
     <div class="columns">
       <div class="column is-8" role="form" aria-label="Formulário para criação de uma nova tarefa">
-        <input type="text" class="input" placeholder="Qual tarefa você deseja iniciar?">
+        <input
+          type="text"
+          class="input"
+          placeholder="Qual tarefa você deseja iniciar?"
+          v-model.trim="describe"
+        >
       </div>
       <div class="column">
-        <Timer/>
+        <Timer @on-finished="finished"/>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import { Task } from '@/interfaces/Task';
 import { defineComponent } from 'vue';
 import Timer from './Timer.vue';
 
 export default defineComponent({
   name: 'FormTask',
-
+  emits: ['onSave'],
+  data() {
+    return {
+      describe: '',
+      task: {} as Task
+    }
+  },
   components: {
     Timer,
+  },
+  methods: {
+    finished(time: number) {
+      this.task = {
+        tempSegunds: time,
+        describe: this.describe
+      };
+
+      this.$emit('onSave', this.task);
+    }
   }
 })
 </script>
