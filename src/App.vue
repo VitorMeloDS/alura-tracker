@@ -5,6 +5,10 @@
     </div>
     <div class="column is-three-quarter">
       <FormTask/>
+
+      <div class="lista">
+        <Taks/>
+      </div>
     </div>
   </main>
 </template>
@@ -13,16 +17,20 @@
 import { defineComponent } from 'vue';
 import FormTask from './components/FormTask.vue';
 import LateralBar from './components/LateralBar.vue';
+import Taks from './components/Taks.vue';
 
 export default defineComponent({
   name: 'App',
   components: {
     LateralBar,
     FormTask,
+    Taks,
   }
 });
 </script>
 
 <style>
-
+.lista {
+  padding: 1.25rem;
+}
 </style>
